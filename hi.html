@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+        }
+        .card, .input-section, .flashcard-section, .folder-section {
+            background: white;
+            padding: 40px;
+            width: 600px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        .word {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .phonetic {
+            font-size: 24px;
+            color: gray;
+        }
+        .meaning {
+            font-size: 28px;
+            margin-top: 20px;
+        }
+        button, input {
+            margin-top: 15px;
+            padding: 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        input {
+            width: 560px;
+            background: white;
+            color: black;
+            border: 1px solid #ccc;
+            padding: 12px;
+            font-size: 18px;
+        }
+        .folder-list, .flashcard-list {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 600px;
+            display: none;
+        }
+        .folder-item, .flashcard-item {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="toggleSection('input-section')">➕ Add New Word</button>
+        <div class="input-section" id="input-section" style="display: none;">
+            <input type="text" id="inputWord" placeholder="Enter word">
+            <input type="text" id="inputPhonetic" placeholder="Enter phonetic">
+            <input type="text" id="inputMeaning" placeholder="Enter meaning">
+            <input type="text" id="inputFolder" placeholder="Enter folder name">
+            <button onclick="addFlashcard()">Add Flashcard</button>
+        </div>
+        
+        <button onclick="toggleSection('folder-section')">📂 View Folders</button>
+        <div class="folder-section" id="folder-section" style="display: none;">
+            <div class="folder-list" id="folderList">
+                <div class="folder-item" onclick="showFlashcards('Unit 6')">Unit 6</div>
+                <div class="folder-item" onclick="showFlashcards('Unit 7')">Unit 7</div>
+            </div>
+        </div>
+
+        <div class="flashcard-section" id="flashcard-section" style="display: none;">
+            <h3 id="selectedFolder"></h3>
+            <div class="flashcard-list" id="flashcardList"></div>
+            <button onclick="toggleSection('flashcard-section')">Back</button>
+        </div>
+    </div>
+    
+    <script>
+        const flashcards = {
+            "Unit 6": [
+                { word: "advanced", phonetic: "/ədˈvɑːnst/", meaning: "tiên tiến, trình độ cao" },
+                { word: "chatbot", phonetic: "/ˈtʃætbɒt/", meaning: "hộp trò chuyện" },
+                { word: "analyse", phonetic: "/ˈænəlaɪz/", meaning: "phân tích" },
+                { word: "programme", phonetic: "/ˈprəʊɡræm/", meaning: "lập trình" },
+                { word: "app", phonetic: "/æp/", meaning: "ứng dụng" },
+                { word: "data", phonetic: "/ˈdeɪtə/", meaning: "dữ liệu" },
+                { word: "virtual reality", phonetic: "/ˌvɜːtʃuəl riˈæləti/", meaning: "thực tế ảo" }
+            ],
+            "Unit 7": [
+                { word: "advert", phonetic: "/ˈæd.vɜːt/", meaning: "quảng cáo" },
+                { word: "advertise", phonetic: "/ˈæd.və.taɪz/", meaning: "quảng cáo sản phẩm, quảng bá sự kiện" },
+                { word: "commercial", phonetic: "/kəˈmɜː.ʃəl/", meaning: "quảng cáo (trên truyền hình, truyền thanh, trang mạng)" },
+                { word: "discount", phonetic: "/ˈdɪs.kaʊnt/", meaning: "sự hạ giá" },
+                { word: "profit-making", phonetic: "/ˈprɒf.ɪt ˌmeɪ.kɪŋ/", meaning: "có lợi nhuận" },
+                { word: "social media", phonetic: "/ˈsəʊ.ʃəl ˈmiː.dɪ.ə/", meaning: "mạng xã hội" },
+                { word: "view", phonetic: "/vjuː/", meaning: "xem" },
+                { word: "bias", phonetic: "/ˈbaɪ.əs/", meaning: "thiên kiến, thiên vị" },
+                { word: "fake news", phonetic: "/feɪk njuːz/", meaning: "tin giả, tin bịa đặt" },
+                { word: "reliable", phonetic: "/rɪˈlaɪ.ə.bəl/", meaning: "đáng tin cậy" },
+                { word: "debate", phonetic: "/dɪˈbeɪt/", meaning: "cuộc tranh luận" },
+                { word: "feedback", phonetic: "/ˈfiːd.bæk/", meaning: "phản hồi" },
+                { word: "announcement", phonetic: "/əˈnaʊnsmənt/", meaning: "thông báo" }
+            ]
+        };
+    </script>
+</body>
+</html>
